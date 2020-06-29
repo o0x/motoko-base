@@ -62,7 +62,24 @@ Debug.print("Array");
     x % 2 == 0;
   };
 
-  let actual = Array.filter<Nat>(isEven, [ 1, 2, 3, 4, 5, 6 ]);
+  let actual = Array.filter<Nat>([ 1, 2, 3, 4, 5, 6 ], isEven);
+  let expected = [ 2, 4, 6 ];
+
+  assert(actual.len() == expected.len());
+
+  for (i in actual.keys()) {
+    assert(actual[i] == expected[i]);
+  };
+};
+
+{
+  Debug.print("  filterMap");
+
+  let isEven = func (x : Nat) : ?Nat {
+    if (x % 2 == 0) ?x else null;
+  };
+
+  let actual = Array.filterMap<Nat, Nat>([ 1, 2, 3, 4, 5, 6 ], isEven);
   let expected = [ 2, 4, 6 ];
 
   assert(actual.len() == expected.len());
